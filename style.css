@@ -6,6 +6,31 @@
     margin: 0;
     padding: 0;
 }
+html, body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* This is the most important line */
+  position: relative;
+}
+
+* {
+  box-sizing: border-box; /* Ensures padding doesn't add to width */
+}
+.mask-section, 
+.header-identity,
+.gallery-section {
+  width: 100%;
+  max-width: 100vw; 
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+}
+.school-text-mask {
+  max-width: 100%; 
+  display: inline-block;
+  word-break: break-all; 
+}
 
 .heading{
     width: 100%;
@@ -21,49 +46,56 @@
 
 .mask-section {
   width: 100%;
-  overflow: hidden; 
-  padding: 60px 0;
+  overflow: hidden;
+  padding: 40px 0;
   background-color: var(--white);
 }
 
 .text-mask-container {
-  max-width: 1200px;
-  margin: 0 auto;
   display: flex;
   justify-content: center;
-  padding: 0 20px;
+  align-items: center;
+  width: 100%;
 }
 
 .school-text-mask {
+  /* 1. Typography */
   font-family: var(--font-display);
   font-weight: 900;
   text-transform: uppercase;
-  margin: 0;
-  line-height: 1.1;
   text-align: center;
-
- 
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -1px;
+  
+  /* 2. Responsive Size */
   font-size: 70px; 
+  white-space: nowrap; /* Keeps it on one line */
 
- 
-  background-image: url('./Images/bg.jpeg');
+  /* 3. The Image (REPLACE 'your-image.jpg' WITH A VALID IMAGE PATH) */
+  background-image: url('./Images/bg.jpeg'); 
   background-size: cover;
   background-position: center;
+
+  /* 4. The Clipping Logic */
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
   
-
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  /* 5. VISIBILITY FIX: Fallback color if clip fails */
+  color: var(--navy); 
+  
+  /* This line makes the text transparent ONLY if the background-clip is supported */
+  -webkit-text-fill-color: transparent; 
 }
 
-
+/* Specific fix for the 'A' jumping or text disappearing on small phones */
 @media (max-width: 480px) {
   .school-text-mask {
-   
-    font-size: clamp(35px, 12vw, 60px);
-    letter-spacing: -1px; 
+    font-size: clamp(24px, 8vw, 40px);
+    letter-spacing: -0.5px;
+    /* If the word is still too long, allow it to wrap as a last resort */
+    white-space: normal; 
+    word-break: keep-all;
   }
 }
 .header-identity {
