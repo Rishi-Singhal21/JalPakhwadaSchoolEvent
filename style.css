@@ -71,23 +71,26 @@
   padding: 20px 0;
   background-color: var(--white);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .identity-row {
   display: flex;
-  flex-direction: row;
+  flex-direction: column; /* Stack logo and name by default for mobile */
   align-items: center;
   justify-content: center;
-  gap: clamp(10px, 2vw, 20px);
+  gap: 10px;
   padding: 0 15px;
-  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .school-logo {
-  
-  height: clamp(40px, 8vw, 80px); 
+  height: clamp(60px, 12vw, 90px);
   width: auto;
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 .school-name {
@@ -96,28 +99,34 @@
   margin: 0;
   font-weight: 900;
   text-transform: uppercase;
-  white-space: nowrap;
-  font-size: 50px; 
+  text-align: center;
+  line-height: 1.2;
+  
+  /* Strictly control the font size so it never pushes the boundary */
+  font-size: clamp(20px, 6vw, 48px);
+  
+  /* Allow the name to break into two lines if it's too long for the phone */
+  white-space: normal; 
+  word-wrap: break-word;
 }
 
 .header-divider {
-  width: 90%;
+  width: 80%;
   max-width: 1100px;
   border: none;
   height: 2px;
   background-color: var(--gold);
   margin: 15px auto 0 auto;
-  opacity: 0.6;
 }
 
-
-@media (max-width: 400px) {
+/* Desktop View: Put them back on one line if there is space */
+@media (min-width: 768px) {
   .identity-row {
-    gap: 8px;
-    padding: 0 10px;
+    flex-direction: row; 
+    gap: 20px;
   }
   .school-name {
-    letter-spacing: -0.5px; 
+    white-space: nowrap; /* Keep it one line on big screens */
   }
 }
 hr{
